@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>소띠 오늘의 운세</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: url('/cow.png') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .speech {
+      background: rgba(255, 255, 255, 0.95);
+      border: 3px solid #000;
+      border-radius: 20px;
+      padding: 25px;
+      width: 300px;
+      max-width: 80%;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="speech">
+    <div class="title">소띠 오늘의 운세</div>
+    <div id="fortune">운세를 불러오는 중...</div>
+  </div>
+
+  <script>
+    async function loadFortune() {
+      try {
+        const res = await fetch('/api/fortune');
+        const data = await res.json();
+        document.getElementById('fortune').innerText = data.fortune || '운세를 불러올 수 없습니다.';
+      } catch {
+        document.getElementById('fortune').innerText = '운세를 불러올 수 없습니다.';
+      }
+    }
+    window.onload = loadFortune;
+  </script>
+</body>
+</html>
